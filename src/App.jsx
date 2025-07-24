@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import "./App.css";
-import { getVehicleInfo } from "./utils/api";
+import { getVehicleInfo, saveVehicleInfo } from "./utils/api";
 import { pick } from "lodash";
 import moment from "moment/moment";
 
@@ -31,6 +31,8 @@ function App() {
       formattedResult.Age = moment().year() - formattedResult.ModelYear;
 
       setVinDetails([formattedResult, ...vinDetails]);
+
+      await saveVehicleInfo(formattedResult);
     }
   };
 
@@ -43,7 +45,7 @@ function App() {
           <input type="text" onChange={handleOnChange} />
         </form>
 
-        <div style={{marginTop: 10}}>
+        <div style={{ marginTop: 10 }}>
           <table>
             <tr>
               <th>Vin Number</th>
